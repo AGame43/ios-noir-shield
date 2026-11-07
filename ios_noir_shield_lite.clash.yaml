@@ -1,0 +1,25 @@
+# mihomo / Clash Verge rule-provider  (behavior: domain)
+payload:
+  # ══════════ B. 运营商免密取号（文章点名这三个）══════════
+  - +.cmpassport.com
+  - +.id6.me
+  - +.wostore.cn
+  # ══════════ C. 指纹 / 后门 / 行为探针 ══════════
+  - +.shuzilm.cn
+  - +.jspatch.com
+  - +.online-metrix.net
+  # ══════════ D. 核心遥测（秒针 / 穿山甲 / 友盟）══════════
+  - +.miaozhen.com
+  - +.pangolin-sdk-toutiao.com
+  - +.pangolin-sdk-toutiao-b.com
+  - +.pangle.io
+  - +.umeng.com
+  - +.umengcloud.com
+
+# ── config.yaml 接入 ─────────────────────────────
+# rule-providers:
+#   noir-shield: {type: file, behavior: domain, format: yaml, path: ./ruleset/ios-noir-shield.yaml}
+# rules:
+#   - DOMAIN-SUFFIX,tenpay.com,DIRECT      # 保护区必须排最前
+#   - RULE-SET,noir-shield,REJECT
+#   - MATCH,🚀 节点选择

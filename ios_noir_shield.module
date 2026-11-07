@@ -1,0 +1,100 @@
+#!name=🛡️ iOS-NOIR Shield · 完整版
+#!desc=65 条精准拦截，覆盖真机全部追踪域名；已排除微信与扫码支付链路
+#!system=ios
+
+[Rule]
+# ══════════════════════════════════════════════════════════════════════
+DOMAIN-SUFFIX,tenpay.com,DIRECT
+DOMAIN-SUFFIX,weixin.qq.com,DIRECT
+DOMAIN-SUFFIX,wx.qq.com,DIRECT
+DOMAIN-SUFFIX,wechat.com,DIRECT
+DOMAIN-SUFFIX,servicewechat.com,DIRECT
+DOMAIN-SUFFIX,qlogo.cn,DIRECT
+DOMAIN-SUFFIX,qpic.cn,DIRECT
+DOMAIN-SUFFIX,gtimg.cn,DIRECT
+DOMAIN-SUFFIX,alipay.com,DIRECT
+DOMAIN-SUFFIX,alipayobjects.com,DIRECT
+DOMAIN-SUFFIX,alipay.cn,DIRECT
+DOMAIN-SUFFIX,unionpay.com,DIRECT
+DOMAIN-SUFFIX,unionpayintl.com,DIRECT
+DOMAIN-SUFFIX,95516.com,DIRECT
+# 中国移动 CM Passport 统一认证
+DOMAIN-SUFFIX,cmpassport.com,REJECT
+# 运营商系取号网关（中移互联网）
+DOMAIN-SUFFIX,id6.me,REJECT
+# 中国联通 沃商店 / 短信 / MDN(本机号码) 网关
+DOMAIN-SUFFIX,wostore.cn,REJECT
+DOMAIN-SUFFIX,wosms.cn,REJECT
+DOMAIN-SUFFIX,mdn.open.wo.cn,REJECT
+DOMAIN-SUFFIX,hm.wo.cn,REJECT
+# 中国电信 取号网关（只拦认证子域，不动 189.cn 主站/营业厅）
+DOMAIN-SUFFIX,open.e.189.cn,REJECT
+DOMAIN-SUFFIX,id.189.cn,REJECT
+# 数字联盟 —— 跨 App 设备 DNA 指纹（改机/重装/换机都跟着你）
+DOMAIN-SUFFIX,shuzilm.cn,REJECT-DROP
+# JSPatch —— 远程下发 JS 改原生逻辑的热更新后门
+DOMAIN-SUFFIX,jspatch.com,REJECT
+# ThreatMetrix / LexisNexis —— 键盘节奏、按压力度行为生物特征
+DOMAIN-SUFFIX,online-metrix.net,REJECT-DROP
+DOMAIN-SUFFIX,online-metrix.com,REJECT-DROP
+# D1. 秒针系统 Miaozhen（跨端广告归因，国内覆盖率最高之一）
+DOMAIN-SUFFIX,miaozhen.com,REJECT-TINYGIF
+DOMAIN-SUFFIX,mmstat.com,REJECT-TINYGIF
+# D2. 友盟 Umeng（阿里系统计/推送 SDK）
+DOMAIN-SUFFIX,umeng.com,REJECT-TINYGIF
+DOMAIN-SUFFIX,umengcloud.com,REJECT-TINYGIF
+DOMAIN-SUFFIX,umsns.com,REJECT-TINYGIF
+# D3. 穿山甲 / 巨量引擎（只拦 SDK 专属域，绝不动 *.snssdk.com 主干）
+DOMAIN-SUFFIX,pangolin-sdk-toutiao.com,REJECT-TINYGIF
+DOMAIN-SUFFIX,pangolin-sdk-toutiao-b.com,REJECT-TINYGIF
+DOMAIN-SUFFIX,pglstatp-toutiao.com,REJECT-TINYGIF
+DOMAIN-SUFFIX,pangle.io,REJECT-TINYGIF
+DOMAIN-SUFFIX,extlog.snssdk.com,REJECT-TINYGIF
+DOMAIN-SUFFIX,toblog.ctobsnssdk.com,REJECT-TINYGIF
+DOMAIN-SUFFIX,tobapplog.ctobsnssdk.com,REJECT-TINYGIF
+# D4. 腾讯灯塔 / 广点通 / Bugly（不含 tpns 推送，见 F 段）
+DOMAIN-SUFFIX,btrace.qq.com,REJECT-TINYGIF
+DOMAIN-SUFFIX,rqd.qq.com,REJECT-TINYGIF
+DOMAIN-SUFFIX,oth.eve.mdt.qq.com,REJECT-TINYGIF
+DOMAIN-SUFFIX,otheve.beacon.qq.com,REJECT-TINYGIF
+DOMAIN-SUFFIX,gdt.qq.com,REJECT-TINYGIF
+DOMAIN-SUFFIX,e.qq.com,REJECT-TINYGIF
+DOMAIN-SUFFIX,bugly.qq.com,REJECT-TINYGIF
+# D5. 阿里 埋点（ut/adash/mmstat 系，均不影响淘宝下单与支付链路）
+DOMAIN-SUFFIX,ut.taobao.com,REJECT-TINYGIF
+DOMAIN-SUFFIX,adash.m.taobao.com,REJECT-TINYGIF
+DOMAIN-SUFFIX,adashx.m.taobao.com,REJECT-TINYGIF
+DOMAIN-SUFFIX,adashxgc.ut.taobao.com,REJECT-TINYGIF
+DOMAIN-SUFFIX,h-adashx.ut.taobao.com,REJECT-TINYGIF
+DOMAIN-SUFFIX,log.mmstat.com,REJECT-TINYGIF
+DOMAIN-SUFFIX,wgo.mmstat.com,REJECT-TINYGIF
+# D6. 第三方监测 / DMP
+DOMAIN-SUFFIX,admaster.com,REJECT-TINYGIF
+DOMAIN-SUFFIX,gridsumdissector.com,REJECT-TINYGIF
+DOMAIN-SUFFIX,cr-nielsen.com,REJECT-TINYGIF
+DOMAIN-SUFFIX,imrworldwide.com,REJECT-TINYGIF
+DOMAIN-SUFFIX,tanx.com,REJECT-TINYGIF
+DOMAIN-SUFFIX,rtbasia.com,REJECT-TINYGIF
+DOMAIN-SUFFIX,udbac.com,REJECT-TINYGIF
+DOMAIN-SUFFIX,gentags.net,REJECT-TINYGIF
+DOMAIN-SUFFIX,tealiumiq.com,REJECT-TINYGIF
+DOMAIN-SUFFIX,tiqcdn.com,REJECT-TINYGIF
+DOMAIN-SUFFIX,omtrdc.net,REJECT-TINYGIF
+DOMAIN-SUFFIX,adobe-campaign.com,REJECT-TINYGIF
+# D7. 单 App 专属遥测（子域级，不碰图片/CDN 主干）
+DOMAIN-SUFFIX,spider-tracker.xiaohongshu.com,REJECT-TINYGIF
+DOMAIN-SUFFIX,ark.xiaohongshu.com,REJECT-TINYGIF
+DOMAIN-SUFFIX,ads-img-qc.xhscdn.com,REJECT-TINYGIF
+DOMAIN-SUFFIX,data.bilibili.com,REJECT-TINYGIF
+DOMAIN-SUFFIX,cm.bilibili.com,REJECT-TINYGIF
+DOMAIN-SUFFIX,hl.meituan.com,REJECT-TINYGIF
+DOMAIN-SUFFIX,analytics.meituan.net,REJECT-TINYGIF
+DOMAIN-SUFFIX,lx0.meituan.com,REJECT-TINYGIF
+DOMAIN-SUFFIX,dreport.meituan.net,REJECT-TINYGIF
+DOMAIN-SUFFIX,t-dsp.pinduoduo.com,REJECT-TINYGIF
+DOMAIN-SUFFIX,meta.pinduoduo.com,REJECT-TINYGIF
+DOMAIN-SUFFIX,th.pinduoduo.com,REJECT-TINYGIF
+# D8. 第三方统计 SDK
+DOMAIN-SUFFIX,talkingdata.net,REJECT-TINYGIF
+DOMAIN-SUFFIX,sensorsdata.cn,REJECT-TINYGIF
+DOMAIN-SUFFIX,growingio.com,REJECT-TINYGIF

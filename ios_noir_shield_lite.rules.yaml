@@ -1,0 +1,49 @@
+#==========================================================
+#  iOS-NOIR Shield · 最小集 · Clash 规则（独立文件）
+#==========================================================
+#
+#  用法一：并入现有配置 —— 把下面 rules: 起的整段，替换或合并进
+#          你配置里的 rules: 段，且必须排在 MATCH / GEOIP 兜底之前。
+#  用法二：客户端覆写/Mixins —— 整份文件作为规则补丁加载。
+#
+#  顺序不可调整：前 14 条 DIRECT 是支付保护区，必须在所有 REJECT 之前，
+#  否则微信聊天、扫码支付、小程序会被一起断掉。
+#
+#  共 26 条：支付保护 14 / 拦截 12
+#
+#  动作用 REJECT（全内核兼容）。若确认客户端是 mihomo / Stash 内核，
+#  可把 shuzilm.cn、online-metrix.net 两行改成 REJECT-DROP。
+#
+#  若你的配置里已有 DOMAIN-KEYWORD,umeng,REJECT，
+#  可删掉本文件里 umeng 的两行，避免重复。
+#
+rules:
+  - DOMAIN-SUFFIX,tenpay.com,DIRECT
+  - DOMAIN-SUFFIX,weixin.qq.com,DIRECT
+  - DOMAIN-SUFFIX,wx.qq.com,DIRECT
+  - DOMAIN-SUFFIX,wechat.com,DIRECT
+  - DOMAIN-SUFFIX,servicewechat.com,DIRECT
+  - DOMAIN-SUFFIX,qlogo.cn,DIRECT
+  - DOMAIN-SUFFIX,qpic.cn,DIRECT
+  - DOMAIN-SUFFIX,gtimg.cn,DIRECT
+  - DOMAIN-SUFFIX,alipay.com,DIRECT
+  - DOMAIN-SUFFIX,alipayobjects.com,DIRECT
+  - DOMAIN-SUFFIX,alipay.cn,DIRECT
+  - DOMAIN-SUFFIX,unionpay.com,DIRECT
+  - DOMAIN-SUFFIX,unionpayintl.com,DIRECT
+  - DOMAIN-SUFFIX,95516.com,DIRECT
+  # ── 运营商免密取号网关 ──
+  - DOMAIN-SUFFIX,cmpassport.com,REJECT
+  - DOMAIN-SUFFIX,id6.me,REJECT
+  - DOMAIN-SUFFIX,wostore.cn,REJECT
+  # ── 数字联盟指纹 / JSPatch 热更新后门 / ThreatMetrix 行为探针 ──
+  - DOMAIN-SUFFIX,shuzilm.cn,REJECT
+  - DOMAIN-SUFFIX,jspatch.com,REJECT
+  - DOMAIN-SUFFIX,online-metrix.net,REJECT
+  # ── 遥测：秒针 / 穿山甲 / 友盟 ──
+  - DOMAIN-SUFFIX,miaozhen.com,REJECT
+  - DOMAIN-SUFFIX,pangolin-sdk-toutiao.com,REJECT
+  - DOMAIN-SUFFIX,pangolin-sdk-toutiao-b.com,REJECT
+  - DOMAIN-SUFFIX,pangle.io,REJECT
+  - DOMAIN-SUFFIX,umeng.com,REJECT
+  - DOMAIN-SUFFIX,umengcloud.com,REJECT

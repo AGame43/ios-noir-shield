@@ -1,0 +1,128 @@
+#============================================================
+#  iOS-NOIR Shield · 完整版 · OpenClash 自定义规则片段
+#============================================================
+#
+#【贴哪里】OpenClash → 覆写设置 → 规则设置 → 自定义规则
+#  （部分版本该项在“常规设置”页底部；贴完点「应用配置」）
+#  这些规则会被插到订阅规则之前，因此不用管订阅里的 MATCH 在哪。
+#
+#【顺序不能调整】保护区必须在拦截之前。Clash 从上往下匹配，
+#  若把 REJECT 放前面，微信支付会被一起断掉。
+#
+#  合计 79 条：支付保护 14 / 拦截 65
+#
+#【前提：DNS 必须被 OpenClash 接管】
+#  纯域名规则依赖 Clash 自己解析出域名。若路由器放行 53 端口直连外部
+#  DNS，手机自己查 8.8.8.8 就会拿到真实 IP，规则可能不命中。
+#  推荐 全局设置 → 运行模式 = Fake-IP；并在 DHCP 里把 DNS 下发为路由器地址。
+#
+#【切到移动网络后无效】路由器规则只管 Wi-Fi 下的设备。
+#  用蜂窝数据时，App 依然能取号 —— 那需要靠 iOS-NOIR 的 .mobileconfig。
+#
+#-------------------------- 规则开始 --------------------------
+DOMAIN-SUFFIX,tenpay.com,DIRECT
+DOMAIN-SUFFIX,weixin.qq.com,DIRECT
+DOMAIN-SUFFIX,wx.qq.com,DIRECT
+DOMAIN-SUFFIX,wechat.com,DIRECT
+DOMAIN-SUFFIX,servicewechat.com,DIRECT
+DOMAIN-SUFFIX,qlogo.cn,DIRECT
+DOMAIN-SUFFIX,qpic.cn,DIRECT
+DOMAIN-SUFFIX,gtimg.cn,DIRECT
+DOMAIN-SUFFIX,alipay.com,DIRECT
+DOMAIN-SUFFIX,alipayobjects.com,DIRECT
+DOMAIN-SUFFIX,alipay.cn,DIRECT
+DOMAIN-SUFFIX,unionpay.com,DIRECT
+DOMAIN-SUFFIX,unionpayintl.com,DIRECT
+DOMAIN-SUFFIX,95516.com,DIRECT
+# 中国移动 CM Passport 统一认证
+DOMAIN-SUFFIX,cmpassport.com,REJECT
+# 运营商系取号网关（中移互联网）
+DOMAIN-SUFFIX,id6.me,REJECT
+# 中国联通 沃商店 / 短信 / MDN(本机号码) 网关
+DOMAIN-SUFFIX,wostore.cn,REJECT
+DOMAIN-SUFFIX,wosms.cn,REJECT
+DOMAIN-SUFFIX,mdn.open.wo.cn,REJECT
+DOMAIN-SUFFIX,hm.wo.cn,REJECT
+# 中国电信 取号网关（只拦认证子域，不动 189.cn 主站/营业厅）
+DOMAIN-SUFFIX,open.e.189.cn,REJECT
+DOMAIN-SUFFIX,id.189.cn,REJECT
+# 数字联盟 —— 跨 App 设备 DNA 指纹（改机/重装/换机都跟着你）
+DOMAIN-SUFFIX,shuzilm.cn,REJECT-DROP
+# JSPatch —— 远程下发 JS 改原生逻辑的热更新后门
+DOMAIN-SUFFIX,jspatch.com,REJECT
+# ThreatMetrix / LexisNexis —— 键盘节奏、按压力度行为生物特征
+DOMAIN-SUFFIX,online-metrix.net,REJECT-DROP
+DOMAIN-SUFFIX,online-metrix.com,REJECT-DROP
+# D1. 秒针系统 Miaozhen（跨端广告归因，国内覆盖率最高之一）
+DOMAIN-SUFFIX,miaozhen.com,REJECT
+DOMAIN-SUFFIX,mmstat.com,REJECT
+# D2. 友盟 Umeng（阿里系统计/推送 SDK）
+DOMAIN-SUFFIX,umeng.com,REJECT
+DOMAIN-SUFFIX,umengcloud.com,REJECT
+DOMAIN-SUFFIX,umsns.com,REJECT
+# D3. 穿山甲 / 巨量引擎（只拦 SDK 专属域，绝不动 *.snssdk.com 主干）
+DOMAIN-SUFFIX,pangolin-sdk-toutiao.com,REJECT
+DOMAIN-SUFFIX,pangolin-sdk-toutiao-b.com,REJECT
+DOMAIN-SUFFIX,pglstatp-toutiao.com,REJECT
+DOMAIN-SUFFIX,pangle.io,REJECT
+DOMAIN-SUFFIX,extlog.snssdk.com,REJECT
+DOMAIN-SUFFIX,toblog.ctobsnssdk.com,REJECT
+DOMAIN-SUFFIX,tobapplog.ctobsnssdk.com,REJECT
+# D4. 腾讯灯塔 / 广点通 / Bugly（不含 tpns 推送，见 F 段）
+DOMAIN-SUFFIX,btrace.qq.com,REJECT
+DOMAIN-SUFFIX,rqd.qq.com,REJECT
+DOMAIN-SUFFIX,oth.eve.mdt.qq.com,REJECT
+DOMAIN-SUFFIX,otheve.beacon.qq.com,REJECT
+DOMAIN-SUFFIX,gdt.qq.com,REJECT
+DOMAIN-SUFFIX,e.qq.com,REJECT
+DOMAIN-SUFFIX,bugly.qq.com,REJECT
+# D5. 阿里 埋点（ut/adash/mmstat 系，均不影响淘宝下单与支付链路）
+DOMAIN-SUFFIX,ut.taobao.com,REJECT
+DOMAIN-SUFFIX,adash.m.taobao.com,REJECT
+DOMAIN-SUFFIX,adashx.m.taobao.com,REJECT
+DOMAIN-SUFFIX,adashxgc.ut.taobao.com,REJECT
+DOMAIN-SUFFIX,h-adashx.ut.taobao.com,REJECT
+DOMAIN-SUFFIX,log.mmstat.com,REJECT
+DOMAIN-SUFFIX,wgo.mmstat.com,REJECT
+# D6. 第三方监测 / DMP
+DOMAIN-SUFFIX,admaster.com,REJECT
+DOMAIN-SUFFIX,gridsumdissector.com,REJECT
+DOMAIN-SUFFIX,cr-nielsen.com,REJECT
+DOMAIN-SUFFIX,imrworldwide.com,REJECT
+DOMAIN-SUFFIX,tanx.com,REJECT
+DOMAIN-SUFFIX,rtbasia.com,REJECT
+DOMAIN-SUFFIX,udbac.com,REJECT
+DOMAIN-SUFFIX,gentags.net,REJECT
+DOMAIN-SUFFIX,tealiumiq.com,REJECT
+DOMAIN-SUFFIX,tiqcdn.com,REJECT
+DOMAIN-SUFFIX,omtrdc.net,REJECT
+DOMAIN-SUFFIX,adobe-campaign.com,REJECT
+# D7. 单 App 专属遥测（子域级，不碰图片/CDN 主干）
+DOMAIN-SUFFIX,spider-tracker.xiaohongshu.com,REJECT
+DOMAIN-SUFFIX,ark.xiaohongshu.com,REJECT
+DOMAIN-SUFFIX,ads-img-qc.xhscdn.com,REJECT
+DOMAIN-SUFFIX,data.bilibili.com,REJECT
+DOMAIN-SUFFIX,cm.bilibili.com,REJECT
+DOMAIN-SUFFIX,hl.meituan.com,REJECT
+DOMAIN-SUFFIX,analytics.meituan.net,REJECT
+DOMAIN-SUFFIX,lx0.meituan.com,REJECT
+DOMAIN-SUFFIX,dreport.meituan.net,REJECT
+DOMAIN-SUFFIX,t-dsp.pinduoduo.com,REJECT
+DOMAIN-SUFFIX,meta.pinduoduo.com,REJECT
+DOMAIN-SUFFIX,th.pinduoduo.com,REJECT
+# D8. 第三方统计 SDK
+DOMAIN-SUFFIX,talkingdata.net,REJECT
+DOMAIN-SUFFIX,sensorsdata.cn,REJECT
+DOMAIN-SUFFIX,growingio.com,REJECT
+#-------------------------- 规则结束 --------------------------
+#
+# 注：REJECT-DROP 只有 mihomo / Clash.Meta 内核支持。
+# 若你的 OpenClash 用的是旧版 Clash Premium 或启动报“unsupported rule”，
+# 把两处 REJECT-DROP 改成 REJECT 即可（区别只是对端会立刻收到 reset）。
+#
+# 若还想让苹果服务走本地，在保护区后面追加（与上面同段即可）：
+# DOMAIN-SUFFIX,apple-relay.apple.com,DIRECT
+# DOMAIN-SUFFIX,mask.icloud.com,DIRECT
+# DOMAIN-SUFFIX,mask-h2.icloud.com,DIRECT
+# 完整清单见 apple_local.qx.txt，把 host-suffix 换成 DOMAIN-SUFFIX、
+# direct 换成 DIRECT 即可。

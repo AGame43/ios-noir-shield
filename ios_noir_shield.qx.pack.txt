@@ -1,0 +1,141 @@
+#============================================================
+#  iOS-NOIR Shield · 完整版 + 苹果本地直连 · Quantumult X 一体版
+#============================================================
+#
+#【怎么用】
+#  1. 小风车 → 配置文件 → 编辑 → 右上角箭头跳到 filter_local
+#  2. 把 规则开始 / 规则结束 之间的内容整段粘贴
+#  3. 必须在你的 final 行【之前】；原有同域规则建议先删掉，避免重复
+#  4. 保存 → 首页 VPN 开关关一次再打开
+#
+#【顺序不能乱】
+#  A 支付保护区 → B 拦截区 → C 苹果直连。QX 从上往下匹配，
+#  苹果那些域名与拦截清单没有交集，放最后只是为了让 8 条保护规则优先。
+#
+#【本文件不含 [filter_local] 标签行】不要补，否则重复段落会报错。
+#  分流层只认 direct / proxy / reject，reject-img 属重写层，写了会启动失败。
+#
+#  合计 93 条：支付保护 14 / 拦截 65 / 苹果直连 14
+#
+#-------------------------- 规则开始 --------------------------
+# ══════════ A. 支付保护区（必须最前）══════════
+host-suffix, tenpay.com, direct
+host-suffix, weixin.qq.com, direct
+host-suffix, wx.qq.com, direct
+host-suffix, wechat.com, direct
+host-suffix, servicewechat.com, direct
+host-suffix, qlogo.cn, direct
+host-suffix, qpic.cn, direct
+host-suffix, gtimg.cn, direct
+host-suffix, alipay.com, direct
+host-suffix, alipayobjects.com, direct
+host-suffix, alipay.cn, direct
+host-suffix, unionpay.com, direct
+host-suffix, unionpayintl.com, direct
+host-suffix, 95516.com, direct
+# ══════════ B. 拦截区（取号 / 指纹 / 后门 / 遥测）══════════
+# 中国移动 CM Passport 统一认证
+host-suffix, cmpassport.com, reject
+# 运营商系取号网关（中移互联网）
+host-suffix, id6.me, reject
+# 中国联通 沃商店 / 短信 / MDN(本机号码) 网关
+host-suffix, wostore.cn, reject
+host-suffix, wosms.cn, reject
+host-suffix, mdn.open.wo.cn, reject
+host-suffix, hm.wo.cn, reject
+# 中国电信 取号网关（只拦认证子域，不动 189.cn 主站/营业厅）
+host-suffix, open.e.189.cn, reject
+host-suffix, id.189.cn, reject
+# 数字联盟 —— 跨 App 设备 DNA 指纹（改机/重装/换机都跟着你）
+host-suffix, shuzilm.cn, reject
+# JSPatch —— 远程下发 JS 改原生逻辑的热更新后门
+host-suffix, jspatch.com, reject
+# ThreatMetrix / LexisNexis —— 键盘节奏、按压力度行为生物特征
+host-suffix, online-metrix.net, reject
+host-suffix, online-metrix.com, reject
+# D1. 秒针系统 Miaozhen（跨端广告归因，国内覆盖率最高之一）
+host-suffix, miaozhen.com, reject
+host-suffix, mmstat.com, reject
+# D2. 友盟 Umeng（阿里系统计/推送 SDK）
+host-suffix, umeng.com, reject
+host-suffix, umengcloud.com, reject
+host-suffix, umsns.com, reject
+# D3. 穿山甲 / 巨量引擎（只拦 SDK 专属域，绝不动 *.snssdk.com 主干）
+host-suffix, pangolin-sdk-toutiao.com, reject
+host-suffix, pangolin-sdk-toutiao-b.com, reject
+host-suffix, pglstatp-toutiao.com, reject
+host-suffix, pangle.io, reject
+host-suffix, extlog.snssdk.com, reject
+host-suffix, toblog.ctobsnssdk.com, reject
+host-suffix, tobapplog.ctobsnssdk.com, reject
+# D4. 腾讯灯塔 / 广点通 / Bugly（不含 tpns 推送，见 F 段）
+host-suffix, btrace.qq.com, reject
+host-suffix, rqd.qq.com, reject
+host-suffix, oth.eve.mdt.qq.com, reject
+host-suffix, otheve.beacon.qq.com, reject
+host-suffix, gdt.qq.com, reject
+host-suffix, e.qq.com, reject
+host-suffix, bugly.qq.com, reject
+# D5. 阿里 埋点（ut/adash/mmstat 系，均不影响淘宝下单与支付链路）
+host-suffix, ut.taobao.com, reject
+host-suffix, adash.m.taobao.com, reject
+host-suffix, adashx.m.taobao.com, reject
+host-suffix, adashxgc.ut.taobao.com, reject
+host-suffix, h-adashx.ut.taobao.com, reject
+host-suffix, log.mmstat.com, reject
+host-suffix, wgo.mmstat.com, reject
+# D6. 第三方监测 / DMP
+host-suffix, admaster.com, reject
+host-suffix, gridsumdissector.com, reject
+host-suffix, cr-nielsen.com, reject
+host-suffix, imrworldwide.com, reject
+host-suffix, tanx.com, reject
+host-suffix, rtbasia.com, reject
+host-suffix, udbac.com, reject
+host-suffix, gentags.net, reject
+host-suffix, tealiumiq.com, reject
+host-suffix, tiqcdn.com, reject
+host-suffix, omtrdc.net, reject
+host-suffix, adobe-campaign.com, reject
+# D7. 单 App 专属遥测（子域级，不碰图片/CDN 主干）
+host-suffix, spider-tracker.xiaohongshu.com, reject
+host-suffix, ark.xiaohongshu.com, reject
+host-suffix, ads-img-qc.xhscdn.com, reject
+host-suffix, data.bilibili.com, reject
+host-suffix, cm.bilibili.com, reject
+host-suffix, hl.meituan.com, reject
+host-suffix, analytics.meituan.net, reject
+host-suffix, lx0.meituan.com, reject
+host-suffix, dreport.meituan.net, reject
+host-suffix, t-dsp.pinduoduo.com, reject
+host-suffix, meta.pinduoduo.com, reject
+host-suffix, th.pinduoduo.com, reject
+# D8. 第三方统计 SDK
+host-suffix, talkingdata.net, reject
+host-suffix, sensorsdata.cn, reject
+host-suffix, growingio.com, reject
+# ══════════ C. 苹果服务走本地直连 ══════════
+# iCloud 私密代理（Private Relay）—— 想让它走本地就必须直连
+host-suffix, apple-relay.apple.com, direct
+host-suffix, mask.icloud.com, direct
+host-suffix, mask-h2.icloud.com, direct
+host-suffix, gateway.icloud.com, direct
+# 配置下发 / 激活
+host-suffix, configuration.apple.com, direct
+# 推送 APNs（直连不影响收通知；若你所在网络 APNs 常掉线，可改成走节点）
+host-suffix, courier.push.apple.com, direct
+# FaceTime / iMessage 注册
+host-suffix, init.ess.apple.com, direct
+host-suffix, identity.ess.apple.com, direct
+# 系统更新（体积大，走本地更省流量）
+host-suffix, mesu.apple.com, direct
+host-suffix, swscan.apple.com, direct
+host-suffix, swdist.apple.com, direct
+host-suffix, swcdn.apple.com, direct
+host-suffix, updates.cdn-apple.com, direct
+# 定位服务
+host-suffix, gsp-ssl.ls.apple.com, direct
+#-------------------------- 规则结束 --------------------------
+#
+# 说明：源头分别是 ios_noir_shield.conf 与 apple_local.qx.txt，
+# 改规则请改源头，然后运行 python build_pack.py 重新生成本文件。

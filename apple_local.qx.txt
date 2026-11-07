@@ -1,0 +1,59 @@
+#============================================================
+#  Apple 服务 · 走本地直连（Quantumult X 粘贴版）
+#============================================================
+#
+#【核心改动只有两处】
+#  1) DOMAIN-SUFFIX → host-suffix
+#     QX 不认 Clash/Surge 的类型名，写了会被静默忽略（不报错，也不生效）
+#  2) Proxy → direct
+#     direct = 不经过节点，走本地网络直连
+#
+#  例：
+#    DOMAIN-SUFFIX, apple-relay.apple.com, Proxy     ← 原来
+#    host-suffix, apple-relay.apple.com, direct      ← 改成
+#
+#【若你说的“本地”是某个策略组】
+#  把 direct 换成那个策略组的名字，大小写必须与 [policy] / [server_remote]
+#  里定义的完全一致，例如：
+#    host-suffix, apple-relay.apple.com, 本地网关
+#
+#【重要：direct ≠ 绕过 QX】
+#  direct 只是不走节点，流量依然被 QX 隧道接管，DNS 也仍由 QX 处理。
+#  QX 没有 skip-proxy 这个键，域名级无法彻底绕过隧道；真正不接管只有 IP 级的
+#  [general] excluded_routes = 192.168.0.0/16, 172.16.0.0/12, 10.0.0.0/8
+#  DNS 层可另加（仍会被接管，只是不做占位 IP 映射）：
+#  [general] dns_exclusion_list = *.apple.com, *.icloud.com
+#
+#【粘贴位置】
+#  [filter_local] 段内、你原有的 final 行之前。
+#  与拦截规则不冲突：这里的域名和 iNOIR Shield 的拦截清单没有交集。
+#
+#------------------------------------------------------------
+# 以下为常用苹果服务，标 direct 走本地（清单不完整，按需增删）
+#------------------------------------------------------------
+
+# iCloud 私密代理（Private Relay）—— 想让它走本地就必须直连
+host-suffix, apple-relay.apple.com, direct
+host-suffix, mask.icloud.com, direct
+host-suffix, mask-h2.icloud.com, direct
+host-suffix, gateway.icloud.com, direct
+
+# 配置下发 / 激活
+host-suffix, configuration.apple.com, direct
+
+# 推送 APNs（直连不影响收通知；若你所在网络 APNs 常掉线，可改成走节点）
+host-suffix, courier.push.apple.com, direct
+
+# FaceTime / iMessage 注册
+host-suffix, init.ess.apple.com, direct
+host-suffix, identity.ess.apple.com, direct
+
+# 系统更新（体积大，走本地更省流量）
+host-suffix, mesu.apple.com, direct
+host-suffix, swscan.apple.com, direct
+host-suffix, swdist.apple.com, direct
+host-suffix, swcdn.apple.com, direct
+host-suffix, updates.cdn-apple.com, direct
+
+# 定位服务
+host-suffix, gsp-ssl.ls.apple.com, direct

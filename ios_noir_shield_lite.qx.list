@@ -1,0 +1,18 @@
+# 🛡️ iOS-NOIR Shield · 最小集 · Quantumult X 远程资源
+#
+# 本文件所有动作均为 reject（QX 分流层只有 direct / proxy / reject 三个动作）。
+# 不含任何 direct 行 —— 因为 [filter_remote] 若填 force-policy，会覆盖文件内
+# 每一行的策略，一旦混进 direct 就会连同微信/支付一起断掉。
+# 保护区那 14 条 direct 请手动放在 [filter_local] 顶部。
+host-suffix, cmpassport.com, reject
+host-suffix, id6.me, reject
+host-suffix, wostore.cn, reject
+host-suffix, shuzilm.cn, reject
+host-suffix, jspatch.com, reject
+host-suffix, online-metrix.net, reject
+host-suffix, miaozhen.com, reject
+host-suffix, pangolin-sdk-toutiao.com, reject
+host-suffix, pangolin-sdk-toutiao-b.com, reject
+host-suffix, pangle.io, reject
+host-suffix, umeng.com, reject
+host-suffix, umengcloud.com, reject

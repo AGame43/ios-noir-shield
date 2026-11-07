@@ -1,0 +1,35 @@
+#!name=🛡️ iOS-NOIR Shield · 最小集
+#!desc=只拦文章点名的六类目标，误伤面为零，覆盖率约五成
+#!system=ios
+
+[Rule]
+# ══════════ A. 保护区（微信 / 扫码支付 / 小程序 / 银联）══════════
+DOMAIN-SUFFIX,tenpay.com,DIRECT
+DOMAIN-SUFFIX,weixin.qq.com,DIRECT
+DOMAIN-SUFFIX,wx.qq.com,DIRECT
+DOMAIN-SUFFIX,wechat.com,DIRECT
+DOMAIN-SUFFIX,servicewechat.com,DIRECT
+DOMAIN-SUFFIX,qlogo.cn,DIRECT
+DOMAIN-SUFFIX,qpic.cn,DIRECT
+DOMAIN-SUFFIX,gtimg.cn,DIRECT
+DOMAIN-SUFFIX,alipay.com,DIRECT
+DOMAIN-SUFFIX,alipayobjects.com,DIRECT
+DOMAIN-SUFFIX,alipay.cn,DIRECT
+DOMAIN-SUFFIX,unionpay.com,DIRECT
+DOMAIN-SUFFIX,unionpayintl.com,DIRECT
+DOMAIN-SUFFIX,95516.com,DIRECT
+# ══════════ B. 运营商免密取号（文章点名这三个）══════════
+DOMAIN-SUFFIX,cmpassport.com,REJECT
+DOMAIN-SUFFIX,id6.me,REJECT
+DOMAIN-SUFFIX,wostore.cn,REJECT
+# ══════════ C. 指纹 / 后门 / 行为探针 ══════════
+DOMAIN-SUFFIX,shuzilm.cn,REJECT-DROP
+DOMAIN-SUFFIX,jspatch.com,REJECT
+DOMAIN-SUFFIX,online-metrix.net,REJECT-DROP
+# ══════════ D. 核心遥测（秒针 / 穿山甲 / 友盟）══════════
+DOMAIN-SUFFIX,miaozhen.com,REJECT-TINYGIF
+DOMAIN-SUFFIX,pangolin-sdk-toutiao.com,REJECT-TINYGIF
+DOMAIN-SUFFIX,pangolin-sdk-toutiao-b.com,REJECT-TINYGIF
+DOMAIN-SUFFIX,pangle.io,REJECT-TINYGIF
+DOMAIN-SUFFIX,umeng.com,REJECT-TINYGIF
+DOMAIN-SUFFIX,umengcloud.com,REJECT-TINYGIF

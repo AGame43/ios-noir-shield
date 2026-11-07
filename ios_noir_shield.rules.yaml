@@ -1,0 +1,102 @@
+#==========================================================
+#  iOS-NOIR Shield · 完整版 · Clash 规则（独立文件）
+#==========================================================
+#
+#  用法一：并入现有配置 —— 把下面 rules: 起的整段，替换或合并进
+#          你配置里的 rules: 段，且必须排在 MATCH / GEOIP 兜底之前。
+#  用法二：客户端覆写/Mixins —— 整份文件作为规则补丁加载。
+#
+#  顺序不可调整：前 14 条 DIRECT 是支付保护区，必须在所有 REJECT 之前，
+#  否则微信聊天、扫码支付、小程序会被一起断掉。
+#
+#  共 79 条：支付保护 14 / 拦截 65
+#
+#  动作用 REJECT（全内核兼容）。若确认客户端是 mihomo / Stash 内核，
+#  可把 shuzilm.cn、online-metrix.net 两行改成 REJECT-DROP。
+#
+#  若你的配置里已有 DOMAIN-KEYWORD,umeng,REJECT，
+#  可删掉本文件里 umeng 的两行，避免重复。
+#
+rules:
+  - DOMAIN-SUFFIX,tenpay.com,DIRECT
+  - DOMAIN-SUFFIX,weixin.qq.com,DIRECT
+  - DOMAIN-SUFFIX,wx.qq.com,DIRECT
+  - DOMAIN-SUFFIX,wechat.com,DIRECT
+  - DOMAIN-SUFFIX,servicewechat.com,DIRECT
+  - DOMAIN-SUFFIX,qlogo.cn,DIRECT
+  - DOMAIN-SUFFIX,qpic.cn,DIRECT
+  - DOMAIN-SUFFIX,gtimg.cn,DIRECT
+  - DOMAIN-SUFFIX,alipay.com,DIRECT
+  - DOMAIN-SUFFIX,alipayobjects.com,DIRECT
+  - DOMAIN-SUFFIX,alipay.cn,DIRECT
+  - DOMAIN-SUFFIX,unionpay.com,DIRECT
+  - DOMAIN-SUFFIX,unionpayintl.com,DIRECT
+  - DOMAIN-SUFFIX,95516.com,DIRECT
+  # ── 运营商免密取号网关 ──
+  - DOMAIN-SUFFIX,cmpassport.com,REJECT
+  - DOMAIN-SUFFIX,id6.me,REJECT
+  - DOMAIN-SUFFIX,wostore.cn,REJECT
+  # ── 数字联盟指纹 / JSPatch 热更新后门 / ThreatMetrix 行为探针 ──
+  - DOMAIN-SUFFIX,wosms.cn,REJECT
+  - DOMAIN-SUFFIX,mdn.open.wo.cn,REJECT
+  - DOMAIN-SUFFIX,hm.wo.cn,REJECT
+  # ── 遥测：秒针 / 穿山甲 / 友盟 ──
+  - DOMAIN-SUFFIX,open.e.189.cn,REJECT
+  - DOMAIN-SUFFIX,id.189.cn,REJECT
+  - DOMAIN-SUFFIX,shuzilm.cn,REJECT
+  - DOMAIN-SUFFIX,jspatch.com,REJECT
+  - DOMAIN-SUFFIX,online-metrix.net,REJECT
+  - DOMAIN-SUFFIX,online-metrix.com,REJECT
+  - DOMAIN-SUFFIX,miaozhen.com,REJECT
+  - DOMAIN-SUFFIX,mmstat.com,REJECT
+  - DOMAIN-SUFFIX,umeng.com,REJECT
+  - DOMAIN-SUFFIX,umengcloud.com,REJECT
+  - DOMAIN-SUFFIX,umsns.com,REJECT
+  - DOMAIN-SUFFIX,pangolin-sdk-toutiao.com,REJECT
+  - DOMAIN-SUFFIX,pangolin-sdk-toutiao-b.com,REJECT
+  - DOMAIN-SUFFIX,pglstatp-toutiao.com,REJECT
+  - DOMAIN-SUFFIX,pangle.io,REJECT
+  - DOMAIN-SUFFIX,extlog.snssdk.com,REJECT
+  - DOMAIN-SUFFIX,toblog.ctobsnssdk.com,REJECT
+  - DOMAIN-SUFFIX,tobapplog.ctobsnssdk.com,REJECT
+  - DOMAIN-SUFFIX,btrace.qq.com,REJECT
+  - DOMAIN-SUFFIX,rqd.qq.com,REJECT
+  - DOMAIN-SUFFIX,oth.eve.mdt.qq.com,REJECT
+  - DOMAIN-SUFFIX,otheve.beacon.qq.com,REJECT
+  - DOMAIN-SUFFIX,gdt.qq.com,REJECT
+  - DOMAIN-SUFFIX,e.qq.com,REJECT
+  - DOMAIN-SUFFIX,bugly.qq.com,REJECT
+  - DOMAIN-SUFFIX,ut.taobao.com,REJECT
+  - DOMAIN-SUFFIX,adash.m.taobao.com,REJECT
+  - DOMAIN-SUFFIX,adashx.m.taobao.com,REJECT
+  - DOMAIN-SUFFIX,adashxgc.ut.taobao.com,REJECT
+  - DOMAIN-SUFFIX,h-adashx.ut.taobao.com,REJECT
+  - DOMAIN-SUFFIX,log.mmstat.com,REJECT
+  - DOMAIN-SUFFIX,wgo.mmstat.com,REJECT
+  - DOMAIN-SUFFIX,admaster.com,REJECT
+  - DOMAIN-SUFFIX,gridsumdissector.com,REJECT
+  - DOMAIN-SUFFIX,cr-nielsen.com,REJECT
+  - DOMAIN-SUFFIX,imrworldwide.com,REJECT
+  - DOMAIN-SUFFIX,tanx.com,REJECT
+  - DOMAIN-SUFFIX,rtbasia.com,REJECT
+  - DOMAIN-SUFFIX,udbac.com,REJECT
+  - DOMAIN-SUFFIX,gentags.net,REJECT
+  - DOMAIN-SUFFIX,tealiumiq.com,REJECT
+  - DOMAIN-SUFFIX,tiqcdn.com,REJECT
+  - DOMAIN-SUFFIX,omtrdc.net,REJECT
+  - DOMAIN-SUFFIX,adobe-campaign.com,REJECT
+  - DOMAIN-SUFFIX,spider-tracker.xiaohongshu.com,REJECT
+  - DOMAIN-SUFFIX,ark.xiaohongshu.com,REJECT
+  - DOMAIN-SUFFIX,ads-img-qc.xhscdn.com,REJECT
+  - DOMAIN-SUFFIX,data.bilibili.com,REJECT
+  - DOMAIN-SUFFIX,cm.bilibili.com,REJECT
+  - DOMAIN-SUFFIX,hl.meituan.com,REJECT
+  - DOMAIN-SUFFIX,analytics.meituan.net,REJECT
+  - DOMAIN-SUFFIX,lx0.meituan.com,REJECT
+  - DOMAIN-SUFFIX,dreport.meituan.net,REJECT
+  - DOMAIN-SUFFIX,t-dsp.pinduoduo.com,REJECT
+  - DOMAIN-SUFFIX,meta.pinduoduo.com,REJECT
+  - DOMAIN-SUFFIX,th.pinduoduo.com,REJECT
+  - DOMAIN-SUFFIX,talkingdata.net,REJECT
+  - DOMAIN-SUFFIX,sensorsdata.cn,REJECT
+  - DOMAIN-SUFFIX,growingio.com,REJECT

@@ -1,0 +1,22 @@
+# 🛡️ iOS-NOIR Shield · 最小集 · AdGuard Home 自定义过滤规则
+# 用法: AdG 后台 → 过滤器 → DNS 黑名单 → 添加黑名单列表 → 自定义列表,
+#       把下面内容粘进去保存，然后点「检查更新」。
+# 语法: ||domain^ 命中该域及所有子域，等价 Clash 的 DOMAIN-SUFFIX。
+# 效果: DNS 层直接返回 0.0.0.0/NXDOMAIN，App 连尝试连接的机会都没有。
+# 注意: 这是全局生效，所有连到本路由的设备都会受影响。
+
+# ══════════ B. 运营商免密取号（文章点名这三个）══════════
+||cmpassport.com^
+||id6.me^
+||wostore.cn^
+# ══════════ C. 指纹 / 后门 / 行为探针 ══════════
+||shuzilm.cn^
+||jspatch.com^
+||online-metrix.net^
+# ══════════ D. 核心遥测（秒针 / 穿山甲 / 友盟）══════════
+||miaozhen.com^
+||pangolin-sdk-toutiao.com^
+||pangolin-sdk-toutiao-b.com^
+||pangle.io^
+||umeng.com^
+||umengcloud.com^

@@ -1,0 +1,76 @@
+#============================================================
+#  iOS-NOIR Shield · 最小集 + 苹果本地直连 · Quantumult X 一体版
+#============================================================
+#
+#【怎么用】
+#  1. 小风车 → 配置文件 → 编辑 → 右上角箭头跳到 filter_local
+#  2. 把 规则开始 / 规则结束 之间的内容整段粘贴
+#  3. 必须在你的 final 行【之前】；原有同域规则建议先删掉，避免重复
+#  4. 保存 → 首页 VPN 开关关一次再打开
+#
+#【顺序不能乱】
+#  A 支付保护区 → B 拦截区 → C 苹果直连。QX 从上往下匹配，
+#  苹果那些域名与拦截清单没有交集，放最后只是为了让 8 条保护规则优先。
+#
+#【本文件不含 [filter_local] 标签行】不要补，否则重复段落会报错。
+#  分流层只认 direct / proxy / reject，reject-img 属重写层，写了会启动失败。
+#
+#  合计 40 条：支付保护 14 / 拦截 12 / 苹果直连 14
+#
+#-------------------------- 规则开始 --------------------------
+# ══════════ A. 支付保护区（必须最前）══════════
+host-suffix, tenpay.com, direct
+host-suffix, weixin.qq.com, direct
+host-suffix, wx.qq.com, direct
+host-suffix, wechat.com, direct
+host-suffix, servicewechat.com, direct
+host-suffix, qlogo.cn, direct
+host-suffix, qpic.cn, direct
+host-suffix, gtimg.cn, direct
+host-suffix, alipay.com, direct
+host-suffix, alipayobjects.com, direct
+host-suffix, alipay.cn, direct
+host-suffix, unionpay.com, direct
+host-suffix, unionpayintl.com, direct
+host-suffix, 95516.com, direct
+# ══════════ B. 拦截区（取号 / 指纹 / 后门 / 遥测）══════════
+# ══════════ B. 运营商免密取号（文章点名这三个）══════════
+host-suffix, cmpassport.com, reject
+host-suffix, id6.me, reject
+host-suffix, wostore.cn, reject
+# ══════════ C. 指纹 / 后门 / 行为探针 ══════════
+host-suffix, shuzilm.cn, reject
+host-suffix, jspatch.com, reject
+host-suffix, online-metrix.net, reject
+# ══════════ D. 核心遥测（秒针 / 穿山甲 / 友盟）══════════
+host-suffix, miaozhen.com, reject
+host-suffix, pangolin-sdk-toutiao.com, reject
+host-suffix, pangolin-sdk-toutiao-b.com, reject
+host-suffix, pangle.io, reject
+host-suffix, umeng.com, reject
+host-suffix, umengcloud.com, reject
+# ══════════ C. 苹果服务走本地直连 ══════════
+# iCloud 私密代理（Private Relay）—— 想让它走本地就必须直连
+host-suffix, apple-relay.apple.com, direct
+host-suffix, mask.icloud.com, direct
+host-suffix, mask-h2.icloud.com, direct
+host-suffix, gateway.icloud.com, direct
+# 配置下发 / 激活
+host-suffix, configuration.apple.com, direct
+# 推送 APNs（直连不影响收通知；若你所在网络 APNs 常掉线，可改成走节点）
+host-suffix, courier.push.apple.com, direct
+# FaceTime / iMessage 注册
+host-suffix, init.ess.apple.com, direct
+host-suffix, identity.ess.apple.com, direct
+# 系统更新（体积大，走本地更省流量）
+host-suffix, mesu.apple.com, direct
+host-suffix, swscan.apple.com, direct
+host-suffix, swdist.apple.com, direct
+host-suffix, swcdn.apple.com, direct
+host-suffix, updates.cdn-apple.com, direct
+# 定位服务
+host-suffix, gsp-ssl.ls.apple.com, direct
+#-------------------------- 规则结束 --------------------------
+#
+# 说明：源头分别是 ios_noir_shield_lite.conf 与 apple_local.qx.txt，
+# 改规则请改源头，然后运行 python build_pack.py 重新生成本文件。

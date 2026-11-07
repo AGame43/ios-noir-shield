@@ -1,0 +1,90 @@
+# mihomo / Clash Verge rule-provider  (behavior: domain)
+payload:
+  # 中国移动 CM Passport 统一认证
+  - +.cmpassport.com
+  # 运营商系取号网关（中移互联网）
+  - +.id6.me
+  # 中国联通 沃商店 / 短信 / MDN(本机号码) 网关
+  - +.wostore.cn
+  - +.wosms.cn
+  - +.mdn.open.wo.cn
+  - +.hm.wo.cn
+  # 中国电信 取号网关（只拦认证子域，不动 189.cn 主站/营业厅）
+  - +.open.e.189.cn
+  - +.id.189.cn
+  # 数字联盟 —— 跨 App 设备 DNA 指纹（改机/重装/换机都跟着你）
+  - +.shuzilm.cn
+  # JSPatch —— 远程下发 JS 改原生逻辑的热更新后门
+  - +.jspatch.com
+  # ThreatMetrix / LexisNexis —— 键盘节奏、按压力度行为生物特征
+  - +.online-metrix.net
+  - +.online-metrix.com
+  # D1. 秒针系统 Miaozhen（跨端广告归因，国内覆盖率最高之一）
+  - +.miaozhen.com
+  - +.mmstat.com
+  # D2. 友盟 Umeng（阿里系统计/推送 SDK）
+  - +.umeng.com
+  - +.umengcloud.com
+  - +.umsns.com
+  # D3. 穿山甲 / 巨量引擎（只拦 SDK 专属域，绝不动 *.snssdk.com 主干）
+  - +.pangolin-sdk-toutiao.com
+  - +.pangolin-sdk-toutiao-b.com
+  - +.pglstatp-toutiao.com
+  - +.pangle.io
+  - +.extlog.snssdk.com
+  - +.toblog.ctobsnssdk.com
+  - +.tobapplog.ctobsnssdk.com
+  # D4. 腾讯灯塔 / 广点通 / Bugly（不含 tpns 推送，见 F 段）
+  - +.btrace.qq.com
+  - +.rqd.qq.com
+  - +.oth.eve.mdt.qq.com
+  - +.otheve.beacon.qq.com
+  - +.gdt.qq.com
+  - +.e.qq.com
+  - +.bugly.qq.com
+  # D5. 阿里 埋点（ut/adash/mmstat 系，均不影响淘宝下单与支付链路）
+  - +.ut.taobao.com
+  - +.adash.m.taobao.com
+  - +.adashx.m.taobao.com
+  - +.adashxgc.ut.taobao.com
+  - +.h-adashx.ut.taobao.com
+  - +.log.mmstat.com
+  - +.wgo.mmstat.com
+  # D6. 第三方监测 / DMP
+  - +.admaster.com
+  - +.gridsumdissector.com
+  - +.cr-nielsen.com
+  - +.imrworldwide.com
+  - +.tanx.com
+  - +.rtbasia.com
+  - +.udbac.com
+  - +.gentags.net
+  - +.tealiumiq.com
+  - +.tiqcdn.com
+  - +.omtrdc.net
+  - +.adobe-campaign.com
+  # D7. 单 App 专属遥测（子域级，不碰图片/CDN 主干）
+  - +.spider-tracker.xiaohongshu.com
+  - +.ark.xiaohongshu.com
+  - +.ads-img-qc.xhscdn.com
+  - +.data.bilibili.com
+  - +.cm.bilibili.com
+  - +.hl.meituan.com
+  - +.analytics.meituan.net
+  - +.lx0.meituan.com
+  - +.dreport.meituan.net
+  - +.t-dsp.pinduoduo.com
+  - +.meta.pinduoduo.com
+  - +.th.pinduoduo.com
+  # D8. 第三方统计 SDK
+  - +.talkingdata.net
+  - +.sensorsdata.cn
+  - +.growingio.com
+
+# ── config.yaml 接入 ─────────────────────────────
+# rule-providers:
+#   noir-shield: {type: file, behavior: domain, format: yaml, path: ./ruleset/ios-noir-shield.yaml}
+# rules:
+#   - DOMAIN-SUFFIX,tenpay.com,DIRECT      # 保护区必须排最前
+#   - RULE-SET,noir-shield,REJECT
+#   - MATCH,🚀 节点选择

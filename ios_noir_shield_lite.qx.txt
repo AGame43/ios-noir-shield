@@ -1,0 +1,56 @@
+#============================================================
+#  🛡️ iOS-NOIR Shield · 最小集 · Quantumult X 粘贴版 (.txt)
+#============================================================
+#
+#【怎么用】
+#  1. QX 首页右下角小风车 → 配置文件 → 编辑
+#  2. 编辑器右上角箭头 → 跳到 filter_local
+#  3. 把下面标着 规则开始 / 规则结束 的两行之间内容整段粘进去
+#     位置必须在你的 final 行【之前】
+#  4. 保存 → 回首页把 VPN 开关关一次再打开
+#
+#【注意】
+#  · 本文件没有 [filter_local] 标签行，不要自己补，否则重复段落会报错
+#  · 分流层只认 direct / proxy / reject；reject-img 属于重写层，写了会启动失败
+#  · 纯 filter 层拦截，不需要开 MITM，不需要装证书
+#
+# 共 26 条：保护区 14 条 / 拦截 12 条
+#
+#-------------------------- 规则开始 --------------------------
+# ══════════ A. 保护区（微信 / 扫码支付 / 小程序 / 银联）══════════
+host-suffix, tenpay.com, direct
+host-suffix, weixin.qq.com, direct
+host-suffix, wx.qq.com, direct
+host-suffix, wechat.com, direct
+host-suffix, servicewechat.com, direct
+host-suffix, qlogo.cn, direct
+host-suffix, qpic.cn, direct
+host-suffix, gtimg.cn, direct
+host-suffix, alipay.com, direct
+host-suffix, alipayobjects.com, direct
+host-suffix, alipay.cn, direct
+host-suffix, unionpay.com, direct
+host-suffix, unionpayintl.com, direct
+host-suffix, 95516.com, direct
+# ══════════ B. 运营商免密取号（文章点名这三个）══════════
+host-suffix, cmpassport.com, reject
+host-suffix, id6.me, reject
+host-suffix, wostore.cn, reject
+# ══════════ C. 指纹 / 后门 / 行为探针 ══════════
+host-suffix, shuzilm.cn, reject
+host-suffix, jspatch.com, reject
+host-suffix, online-metrix.net, reject
+# ══════════ D. 核心遥测（秒针 / 穿山甲 / 友盟）══════════
+host-suffix, miaozhen.com, reject
+host-suffix, pangolin-sdk-toutiao.com, reject
+host-suffix, pangolin-sdk-toutiao-b.com, reject
+host-suffix, pangle.io, reject
+host-suffix, umeng.com, reject
+host-suffix, umengcloud.com, reject
+#-------------------------- 规则结束 --------------------------
+#
+# ── 附：你原有配置里 107-114 行苹果规则的写法修正 ──
+# 原写法 DOMAIN-SUFFIX 是 Clash/Surge 的类型名，QX 不认、会被静默忽略。
+# 正确写法（逐行替换原来那 8 行，策略名与你配置里的策略组保持一致）：
+#   host-suffix, apple-relay.apple.com, Proxy
+# 若 Proxy 指 QX 内置代理，内置名是小写 proxy；若是自定义策略组则保留原名。
